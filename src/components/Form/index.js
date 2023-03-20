@@ -9,10 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function Form() {
   const [description, setDescription] = useState("");
-  const [completed, setCompleted] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
+  const [status, setStatus] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const statuses = [
+    { id: 'open', text: "Open" },
+    { id: 'waiting', text: "Waiting for Approval" },
+    { id: 'completed', text: "Completed" }
+  ]
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -23,11 +29,11 @@ export default function Form() {
       validate.push("Please enter the task name.");
     } else {
       // push task to tasks and display on page
-      dispatch(addTask({ description, completed }));
+      dispatch(addTask({ description, status }));
 
       // clear input fields
       setDescription("");
-      setCompleted(false);
+      setStatus(status);
       navigate("/");
     }
     setErrorMessages(validate);
@@ -61,18 +67,21 @@ export default function Form() {
         </div>
         <div>
           <label>
-            <h3>Mark as Completed</h3>
-            <input
-              className="cb"
-              type="checkbox"
-              checked={completed}
-              onChange={(e) => {
-                setCompleted(e.target.checked);
-              }}
-            />
-            <span className={completed ? "tgCompleted" : "null"}>
-              {completed ? <RiToggleFill /> : <RiToggleLine />}
-            </span>
+            <h3>Status</h3>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="form-style"
+              >
+                {statuses.map((item) => (
+                  <option
+                    key={item.id}
+                    value={item.id}>
+                    {item.text}
+                  </option>
+                ))}
+              </select>
+
           </label>
         </div>
         <button>
