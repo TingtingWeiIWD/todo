@@ -4,6 +4,7 @@ import { FiTrash2 } from "react-icons/fi";
 import { RiExchangeBoxLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { changeStatus, removeTask } from "../../../redux/taskSlice";
+import { getStatus } from "../../../variables";
 
 export default function Task({ id, description, status }) {
   const dispatch = useDispatch();
@@ -15,16 +16,12 @@ export default function Task({ id, description, status }) {
   const handleRemoveTask = (event) => {
     dispatch(removeTask(id));
   };
+
   return (
-    <div className="task"> 
+    <div className="task">
       {/* task contents */}
-      <div>
-        Status: {(status === "completed") ? 'Completed'
-                : (status === "waiting") ? 'Waiting For Approval'
-                : 'Open'}
-      </div>
-      
-        
+      <div>Status: {getStatus(status)}</div>
+
       <h3>{description}</h3>
       <p className="id"># {id}</p>
 
@@ -33,7 +30,7 @@ export default function Task({ id, description, status }) {
       <button onClick={handleChangeStatus}>
         <RiExchangeBoxLine />
         Change Status
-        </button>
+      </button>
       <button onClick={handleRemoveTask}>
         <FiTrash2 />
         Remove Task

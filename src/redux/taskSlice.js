@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import uuid from "react-uuid";
 
 const initialTasks = [
-  { description: "Walk the dog", id: uuid(), completed: true },
-  { description: "Wash the car", id: uuid(), completed: true },
-  { description: "Finish the lab", id: uuid(), completed: false },
-  { description: "Grocery shopping", id: uuid(), completed: false },
+  { description: "Walk the dog", id: uuid(), status: 1 },
+  { description: "Wash the car", id: uuid(), status: 1 },
+  { description: "Finish the lab", id: uuid(), status: 2 },
+  { description: "Grocery shopping", id: uuid(), status: 3 },
 ];
 export const taskSlice = createSlice({
   name: "task",
@@ -20,7 +20,11 @@ export const taskSlice = createSlice({
       const id = action.payload;
       state.tasks.forEach((task) => {
         if (task.id === id) {
-          task.completed = !task.completed;
+          if (task.status === 3) {
+            task.status = 1;
+          } else {
+            task.status++;
+          }
         }
       });
     },
@@ -40,7 +44,7 @@ export const taskSlice = createSlice({
       const newTask = {
         id: uuid(),
         description: action.payload.description,
-        completed: action.payload.completed,
+        status: action.payload.status,
       };
       //  state.tasks.push(newTask);
       state.tasks.unshift(newTask);

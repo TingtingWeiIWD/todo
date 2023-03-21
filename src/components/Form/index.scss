@@ -56,6 +56,15 @@ form {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+
+        select.form-style {
+          border: none;
+          border-radius: 20px;
+          text-align: center;
+          font-family: $body-font;
+          padding: 0.1rem 0.5rem;
+          background-color: lightgray;
+        }
         h3 {
           margin: 0;
         }

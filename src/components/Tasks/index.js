@@ -27,7 +27,7 @@ export default function Tasks() {
             key={index}
             id={task.id}
             description={task.description}
-            completed={task.completed}
+            status={task.status}
           />
         ))}
       </div>

@@ -6,19 +6,14 @@ import { CiCircleAlert } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../redux/taskSlice";
 import { useNavigate } from "react-router-dom";
+import { statuses } from "../../variables";
 
 export default function Form() {
   const [description, setDescription] = useState("");
   const [errorMessages, setErrorMessages] = useState([]);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const statuses = [
-    { id: 'open', text: "Open" },
-    { id: 'waiting', text: "Waiting for Approval" },
-    { id: 'completed', text: "Completed" }
-  ]
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -33,8 +28,9 @@ export default function Form() {
 
       // clear input fields
       setDescription("");
-      setStatus(status);
+      setStatus("1");
       navigate("/");
+      console.log(status);
     }
     setErrorMessages(validate);
   };
@@ -68,20 +64,17 @@ export default function Form() {
         <div>
           <label>
             <h3>Status</h3>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="form-style"
-              >
-                {statuses.map((item) => (
-                  <option
-                    key={item.id}
-                    value={item.id}>
-                    {item.text}
-                  </option>
-                ))}
-              </select>
-
+            <select
+              value={status}
+              onChange={(e) => setStatus(parseInt(e.target.value))}
+              className="form-style"
+            >
+              {statuses.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         <button>
