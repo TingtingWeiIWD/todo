@@ -20,18 +20,20 @@ export default function Task({ id, description, status }) {
   return (
     <div className="task">
       {/* task contents */}
-      <div>Status: {getStatus(status)}</div>
 
       <h3>{description}</h3>
       <p className="id"># {id}</p>
 
-      {/* Buttons */}
-      {/* <button onClick={handleChangeStatus}>Change Status</button> */}
-      <button onClick={handleChangeStatus}>
-        <RiExchangeBoxLine />
-        Change Status
-      </button>
-      <button onClick={handleRemoveTask}>
+      <div className="statusContainer">
+        <div>
+          Status: <span className={getStatus(status)}>{getStatus(status)}</span>
+        </div>
+        <button onClick={handleChangeStatus}>
+          <RiExchangeBoxLine />
+          Change Status
+        </button>
+      </div>
+      <button className="remove" onClick={handleRemoveTask}>
         <FiTrash2 />
         Remove Task
       </button>
